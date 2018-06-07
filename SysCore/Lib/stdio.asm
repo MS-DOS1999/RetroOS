@@ -33,7 +33,7 @@ Putc:
 		mov al, [_CurrentX]
 		mov cl, 2
 		mul cl
-		pop eax
+		pop ecx
 		add eax, ecx
 		;notre formule est fini
 
@@ -48,14 +48,14 @@ Putc:
 	mov dl, bl
 	mov dh, bh
 	mov [edi], dx
-	inc [_CurrentX]
-	cmp [_CurrentX], 80 ; fin de la ligne ?
+	inc byte [_CurrentX]
+	cmp byte [_CurrentX], 80 ; fin de la ligne ?
 	je .newLine
 	jmp .done
 
 .newLine:
-	mov [_CurrentX], 0
-	inc [_CurrentY]
+	mov byte [_CurrentX], 0
+	inc byte [_CurrentY]
 
 .done:
 	popa
@@ -64,9 +64,9 @@ Putc:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
-;		Puts(ebx, bh)
+;		Puts(ebx, ah)
 ;		Print une string à la position actuelle
-;		ebx == pointeur vers la string, bh == attribute
+;		ebx == pointeur vers la string, ah == attribute
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -78,12 +78,11 @@ Puts:
 
 .l00p:
 	mov bl, [edi]
-	cmp bh, 0
+	cmp bl, 0
 	je .done
-
+	mov bh, ah
 	call Putc
 
-.next:
 	inc edi
 	jmp .l00p
 
@@ -160,8 +159,8 @@ ClearScreen:
 	mov al, ' '
 	rep stosw ;met le contenu de al et ah dans la memoire edi, repète cette opération le nombre de fois indiqué dans cx, et incrémente la mémoire à chaque répétition
 
-	mov [_CurrentX], 0
-	mov [_CurrentY], 0
+	mov byte [_CurrentX], 0
+	mov byte [_CurrentY], 0
 
 	popa
 	ret

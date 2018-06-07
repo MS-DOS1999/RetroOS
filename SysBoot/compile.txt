@@ -1,1 +1,0 @@
-nasm BootLoader\BootSector\bootsector.asm -o bootloader.bin
