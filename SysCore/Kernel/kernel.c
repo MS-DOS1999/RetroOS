@@ -13,10 +13,12 @@ asm("hlt");
 
 int kernel()
 {
+
 	VGA_Init();
 	VGA_ClearScreen(0x04);
-	VGA_GoToXY(2, 0);
-	VGA_Puts("C Kernel :)", 0x04);
+	VGA_GoToXY(0, 2);
+	char lel[] = "ISSOU";
+	VGA_Puts(lel, 0x04);
 
 	return 0;
 }

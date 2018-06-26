@@ -9,7 +9,7 @@ void VGA_Init()
 	vga.y = 0;
 }
 
-void VGA_GoToXY(const uint8_t x, const uint8_t y)
+void VGA_GoToXY(uint8_t x, uint8_t y)
 {
 	if(vga.x <= 80)
 	{
@@ -21,7 +21,7 @@ void VGA_GoToXY(const uint8_t x, const uint8_t y)
 	}
 }
 
-void VGA_ClearScreen(const uint8_t color)
+void VGA_ClearScreen(uint8_t color)
 {
 	for(int i = 0; i < 80*25; i++)
 	{
@@ -31,7 +31,7 @@ void VGA_ClearScreen(const uint8_t color)
 	VGA_GoToXY(0,0);
 }
 
-void VGA_Putc(const uint8_t c, const uint8_t color)
+void VGA_Putc(char c, uint8_t color)
 {
 	switch(c)
 	{
@@ -59,17 +59,14 @@ void VGA_Putc(const uint8_t c, const uint8_t color)
 	}
 }
 
-void VGA_Puts(const uint8_t *str, const uint8_t color)
+void VGA_Puts(char str[], uint8_t color)
 {
 	int counter = 0;
 	while(str[counter] != '\0')
 	{
+		VGA_Putc(str[counter], color);
 		counter++;
 	}
-
-	for(int i = 0; i < counter; i++)
-	{
-		VGA_Putc(str[i], color);
-	}
+	
 }
 
