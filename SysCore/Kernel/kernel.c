@@ -24,7 +24,7 @@ int kernel()
 	VGA_GoToXY(0, 4);
 	char triggerINT[] = "Trigger INT 5";
 	VGA_Puts(triggerINT, 0x04);
-	HAL_TriggerInterrupt(0x15);
+	HAL_TriggerInterrupt(0);
 
 
 	return 0;
