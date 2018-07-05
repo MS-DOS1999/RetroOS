@@ -1,3 +1,6 @@
+#ifndef VGA_H
+#define VGA_H
+
 #include "..\Crt\stdint.h"
 
 typedef struct{
@@ -10,3 +13,5 @@ void VGA_GoToXY(uint8_t x, uint8_t y);
 void VGA_ClearScreen(uint8_t color);
 void VGA_Putc(char c, uint8_t color);
 void VGA_Puts(char str[], uint8_t color);
+
+#endif

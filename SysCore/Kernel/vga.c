@@ -1,6 +1,6 @@
 #include "vga.h"
 
-VGA vga;
+static VGA vga;
 
 void VGA_Init()
 {
