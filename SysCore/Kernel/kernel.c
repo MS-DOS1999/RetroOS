@@ -10,22 +10,14 @@ asm("cli");
 asm("hlt");
 
 #include "..\Hal\hal.h"
-#include "vga.h"
 
 int kernel()
 {
+	HAL_Init();
 
-	VGA_Init();
 	VGA_ClearScreen(0x04);
 	VGA_GoToXY(0, 2);
 	char strHALInit[] = "Init HAL";
 	VGA_Puts(strHALInit, 0x04);
-	HAL_Init();
-	VGA_GoToXY(0, 4);
-	char triggerINT[] = "Trigger INT 5";
-	VGA_Puts(triggerINT, 0x04);
-	HAL_TriggerInterrupt(0);
-
-
 	return 0;
 }

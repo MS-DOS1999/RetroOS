@@ -1,6 +1,6 @@
 #include "gdt.h"
 #include "..\Crt\memset.h"
-#include "..\Kernel\vga.h"
+#include "vga.h"
 
 static GDT_Descriptor Gdt[NB_GDT];
 

@@ -1,7 +1,7 @@
 #include "idt.h"
 #include "hal.h"
 
-#include "..\Kernel\vga.h"
+#include "vga.h"
 #include "..\Crt\memset.h"
 
 static IDT_Descriptor Idt[NB_INTERRUPTS];
