@@ -2,22 +2,31 @@
 #include "pit.h"
 #include "pic.h"
 #include "hal.h"
+#include "vga.h"
 
 
 static volatile uint32_t pit_ticks = 0;
 
 static int pit_isInit = 0;
 
-void PIT_IrqHandler()
+void Pit_Routine()
 {
-	HAL_StartInt();
-
 	pit_ticks++;
-
 	HAL_IntDone(0);
-
-	HAL_RetInt();
 }
+
+
+//////////////////////
+//_PIT_IrqHandler();
+asm("_PIT_IrqHandler:");
+asm("pushad");
+asm("cld");
+asm("call _Pit_Routine");
+asm("popad");
+asm("iretd");
+void PIT_IrqHandler();
+/////////////////////
+
 
 void PIT_SendCommand(uint8_t cmd)
 {
@@ -96,7 +105,7 @@ void PIT_StartCounter(uint32_t freq, uint8_t counter, uint8_t mode)
 void PIT_Init()
 {
 	//On install l'interrupt handler (l'irq 0 utilise l'interrupt 32)
-	HAL_SetIntVect(32, PIT_IrqHandler);
+	IDT_InstallIR(32, IDT_DESC_PRESENT | IDT_DESC_BIT32, 0x8, (IRQ_HANDLER)PIT_IrqHandler);
 
 	pit_isInit = 1;
 }

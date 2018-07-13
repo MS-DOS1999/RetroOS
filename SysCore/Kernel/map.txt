@@ -1,0 +1,154 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00400000                __image_base__ = 0x400000
+                0x00000000                __dll__ = 0x0
+                0x00400000                ___ImageBase = 0x400000
+                0x00001000                __section_alignment__ = 0x1000
+                0x00000200                __file_alignment__ = 0x200
+                0x00000004                __major_os_version__ = 0x4
+                0x00000000                __minor_os_version__ = 0x0
+                0x00000001                __major_image_version__ = 0x1
+                0x00000000                __minor_image_version__ = 0x0
+                0x00000004                __major_subsystem_version__ = 0x4
+                0x00000000                __minor_subsystem_version__ = 0x0
+                0x00000003                __subsystem__ = 0x3
+                0x00200000                __size_of_stack_reserve__ = 0x200000
+                0x00001000                __size_of_stack_commit__ = 0x1000
+                0x00100000                __size_of_heap_reserve__ = 0x100000
+                0x00001000                __size_of_heap_commit__ = 0x1000
+                0x00000000                __loader_flags__ = 0x0
+                0x00000000                __dll_characteristics__ = 0x0
+Address of section .text set to 0x100000
+LOAD kernel.o
+LOAD hal.o
+LOAD cpu.o
+LOAD vga.o
+LOAD pit.o
+LOAD pic.o
+LOAD idt.o
+LOAD gdt.o
+LOAD memset.o
+OUTPUT(kernel.tmp pei-i386)
+
+.text           0x00100000     0x1600
+ .text          0x00100000       0x90 kernel.o
+                0x00100016                kernel
+ .text          0x00100090      0x148 hal.o
+                0x00100090                HAL_Init
+                0x001000d9                HAL_Shutdown
+                0x001000e7                HAL_InPortB
+                0x00100102                HAL_OutPortB
+                0x00100120                HAL_GetIntVect
+                0x00100167                HAL_IntDone
+                0x001001a6                HAL_Beep
+                0x001001cb                HAL_GetTickCount
+ .text          0x001001d8       0x20 cpu.o
+                0x001001d8                CPU_Init
+                0x001001f2                CPU_Shutdown
+ .text          0x001001f8      0x1b8 vga.o
+                0x001001f8                VGA_Init
+                0x00100216                VGA_GoToXY
+                0x00100253                VGA_ClearScreen
+                0x001002a5                VGA_Putc
+                0x00100364                VGA_Puts
+ .text          0x001003b0      0x1d4 pit.o
+                0x001003b0                Pit_Routine
+                0x001003d2                PIT_IrqHandler
+                0x001003db                PIT_SendCommand
+                0x001003fe                PIT_SendData
+                0x00100447                PIT_ReadData
+                0x00100480                PIT_SetTickCount
+                0x0010049b                PIT_GetTickCount
+                0x001004a5                PIT_StartCounter
+                0x00100540                PIT_Init
+                0x00100577                PIT_IsInit
+ .text          0x00100584      0x190 pic.o
+                0x00100584                PIC_ReadData
+                0x001005c0                PIC_SendData
+                0x00100606                PIC_SendCommand
+                0x0010064c                PIC_Init
+ .text          0x00100714      0xcb8 idt.o
+                0x00100714                IDT_Handler_INT0
+                0x0010076b                IDT_Handler_INT1
+                0x001007df                IDT_Handler_INT2
+                0x00100860                IDT_Handler_INT3
+                0x001008c5                IDT_Handler_INT4
+                0x00100913                IDT_Handler_INT5
+                0x0010096a                IDT_Handler_INT6
+                0x001009c2                IDT_Handler_INT7
+                0x00100a27                IDT_Handler_INT8
+                0x00100a7e                IDT_Handler_INT9
+                0x00100aef                IDT_Handler_INT10
+                0x00100b69                IDT_Handler_INT11
+                0x00100bcc                IDT_Handler_INT12
+                0x00100c35                IDT_Handler_INT13
+                0x00100ca9                IDT_Handler_INT14
+                0x00100cfa                IDT_Handler_INT15
+                0x00100d4b                IDT_Handler_INT16
+                0x00100da6                IDT_Handler_INT17
+                0x00100e17                IDT_Handler_INT18
+                0x00100e95                IDT_Handler_INT19
+                0x00100ef4                IDT_Handler_INT20_31
+                0x00100f49                IDT_Handler_INT32_255
+                0x00100fbd                IDT_Load
+                0x00100fcb                IDT_GetIR
+                0x00100fdb                IDT_InstallIR
+                0x00101042                IDT_Init
+ .text          0x001013cc      0x188 gdt.o
+                0x001013cc                GDT_Load
+                0x001013da                GDT_SetDescriptor
+                0x0010149b                GDT_GetDescriptor
+                0x001014ab                GDT_Init
+ .text          0x00101554       0x30 memset.o
+                0x00101554                memset
+
+.rdata          0x00102000      0x200
+ .rdata$zzz     0x00102000       0x24 kernel.o
+ .rdata$zzz     0x00102024       0x24 hal.o
+ .rdata$zzz     0x00102048       0x24 cpu.o
+ .rdata$zzz     0x0010206c       0x24 vga.o
+ .rdata$zzz     0x00102090       0x24 pit.o
+ .rdata$zzz     0x001020b4       0x24 pic.o
+ .rdata$zzz     0x001020d8       0x24 idt.o
+ .rdata$zzz     0x001020fc       0x24 gdt.o
+ .rdata$zzz     0x00102120       0x24 memset.o
+
+.eh_frame       0x00103000      0x800
+ .eh_frame      0x00103000       0x34 kernel.o
+ .eh_frame      0x00103034      0x118 hal.o
+ .eh_frame      0x0010314c       0x58 cpu.o
+ .eh_frame      0x001031a4       0xb8 vga.o
+ .eh_frame      0x0010325c      0x138 pit.o
+ .eh_frame      0x00103394       0x98 pic.o
+ .eh_frame      0x0010342c      0x300 idt.o
+ .eh_frame      0x0010372c       0x98 gdt.o
+ .eh_frame      0x001037c4       0x38 memset.o
+
+.data           0x00104000        0x0
+ .data          0x00104000        0x0 kernel.o
+ .data          0x00104000        0x0 hal.o
+ .data          0x00104000        0x0 cpu.o
+ .data          0x00104000        0x0 vga.o
+ .data          0x00104000        0x0 pit.o
+ .data          0x00104000        0x0 pic.o
+ .data          0x00104000        0x0 idt.o
+ .data          0x00104000        0x0 gdt.o
+ .data          0x00104000        0x0 memset.o
+
+.bss            0x00104000      0x85c
+ .bss           0x00104000        0x0 kernel.o
+ .bss           0x00104000        0x0 hal.o
+ .bss           0x00104000        0x0 cpu.o
+ .bss           0x00104000        0x8 vga.o
+ .bss           0x00104008        0x8 pit.o
+ .bss           0x00104010        0x0 pic.o
+ *fill*         0x00104010       0x10 
+ .bss           0x00104020      0x820 idt.o
+ .bss           0x00104840       0x1c gdt.o
+ .bss           0x0010485c        0x0 memset.o

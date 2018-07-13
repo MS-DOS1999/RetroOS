@@ -11,13 +11,8 @@
 
 void HAL_Init();
 void HAL_Shutdown();
-void HAL_EnableInt();
-void HAL_DisableInt();
-void HAL_StartInt();
-void HAL_RetInt();
-unsigned char HAL_InPortB(unsigned short id);
-void HAL_OutPortB(unsigned short id, unsigned char data);
-void HAL_SetIntVect(int intNumber, void (*vect)());
+unsigned char HAL_InPortB(unsigned short InPortId);
+void HAL_OutPortB(unsigned short OutPortId, unsigned char OutPortData);
 IRQ_HANDLER HAL_GetIntVect(int intNumber);
 void HAL_IntDone(int intNumber);
 void HAL_Beep(int freq);

@@ -42,7 +42,7 @@ void PIC_Init(uint8_t base0, uint8_t base1)
 	uint8_t	ICW	= 0;
 
 	//on desactive les interrupts hardware
-	HAL_DisableInt();
+	asm("cli");
 
 	//et on init le pic avec les ICWs
 

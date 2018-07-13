@@ -1,15 +1,5 @@
 #include "hal.h"
 
-void HAL_EnableInt()
-{
-	asm("sti");
-}
-
-void HAL_DisableInt()
-{
-	asm("cli");
-}
-
 void HAL_Init()
 {
 	VGA_Init();
@@ -18,7 +8,7 @@ void HAL_Init()
 	PIT_Init();
 	PIT_StartCounter(100, PIT_OCW_COUNTER_0, PIT_OCW_MODE_SQUAREWAVEGEN);
 
-	HAL_EnableInt();
+	asm("sti"); //active int
 }
 
 void HAL_Shutdown()
@@ -26,37 +16,20 @@ void HAL_Shutdown()
 	CPU_Shutdown();
 }
 
-void HAL_StartInt()
+unsigned char HAL_InPortB(unsigned short InPortId)
 {
-	asm("add esp, 12");
-	asm("pushad");
-}
-
-void HAL_RetInt()
-{
-	asm("popad");
-	asm("iretd");
-}
-
-unsigned char HAL_InPortB(unsigned short id)
-{
-	asm("mov dx, word ptr %0" :: "m"(id));
-	asm("in	al, dx");
-	asm("mov byte ptr %0, al" :: "m"(id));
+	asm volatile("mov dx, word ptr [%[InPortId]]" :: [InPortId] "g" (InPortId));
+	asm volatile("in	al, dx");
+	asm volatile("mov byte ptr [%[InPortId]], al" :: [InPortId] "g" (InPortId));
 	
-	return (unsigned char)id;
+	return (unsigned char)InPortId;
 }
 
-void HAL_OutPortB(unsigned short id, unsigned char data)
+void HAL_OutPortB(unsigned short OutPortId, unsigned char OutPortData)
 {
-	asm("mov al, byte ptr %0" :: "m"(data));
-	asm("mov dx, word ptr %0" :: "m"(id));
-	asm("out dx, al");
-}
-
-void HAL_SetIntVect(int intNumber, void (*vect)())
-{
-	IDT_InstallIR(intNumber, IDT_DESC_PRESENT | IDT_DESC_BIT32, 0x8, *vect);
+	asm volatile("mov al, byte ptr [%[OutPortData]]" :: [OutPortData] "g" (OutPortData));
+	asm volatile("mov dx, word ptr [%[OutPortId]]" :: [OutPortId] "g" (OutPortId));
+	asm volatile("out dx, al");
 }
 
 IRQ_HANDLER HAL_GetIntVect(int intNumber)

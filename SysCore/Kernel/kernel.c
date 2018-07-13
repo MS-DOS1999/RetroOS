@@ -19,5 +19,10 @@ int kernel()
 	VGA_GoToXY(0, 2);
 	char strHALInit[] = "Init HAL";
 	VGA_Puts(strHALInit, 0x04);
+	while(1)
+	{
+		VGA_GoToXY(0, 2);
+		VGA_Putc('X', 0x04);
+	}
 	return 0;
 }
