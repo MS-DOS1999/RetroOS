@@ -21,8 +21,10 @@ int kernel()
 	VGA_Puts(strHALInit, 0x04);
 	while(1)
 	{
-		VGA_GoToXY(0, 2);
-		VGA_Putc('X', 0x04);
+		VGA_GoToXY(0, 4);
+		VGA_Base10(HAL_GetTickCount(), 0x04);
+		VGA_GoToXY(0, 8);
+		VGA_Base16(0xAB89FE, 0x04);
 	}
 	return 0;
 }

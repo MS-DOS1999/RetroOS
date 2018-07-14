@@ -70,3 +70,71 @@ void VGA_Puts(char str[], uint8_t color)
 	
 }
 
+void VGA_Base10(int value, uint8_t color)
+{
+    int count = 0;
+    int tmpValue = value;
+
+    while(value != 0)
+    {
+        value /= 10;
+        ++count;
+    }
+
+    int array[30];
+    value = tmpValue;
+    
+    int sub = count-1;
+    while(value != 0)
+    {
+        array[sub] = value % 10;
+        sub--;
+        value /= 10;
+    }
+
+    for(int i = 0; i < count; i++)
+    {	
+    	char tmp = '0' + array[i];
+        VGA_Putc(tmp, color);
+    }
+}
+
+void VGA_Base16(int value, uint8_t color)
+{
+    int count = 0;
+    int tmpValue = value;
+
+    VGA_Putc('0', color);
+    VGA_Putc('x', color);
+
+    while(value != 0)
+    {
+        value /= 16;
+        ++count;
+    }
+
+    int array[30];
+    value = tmpValue;
+    
+    int sub = count-1;
+    while(value != 0)
+    {
+        array[sub] = value % 16;
+        sub--;
+        value /= 16;
+    }
+
+    for(int i = 0; i < count; i++)
+    {	
+    	char tmp;
+    	if(array[i] <= 0x9)
+    	{
+    		tmp = '0' + array[i];
+    	}
+ 		else if(array[i] >= 0xA)
+ 		{
+ 			tmp = 'A' + (array[i] - 0xA);
+ 		}
+        VGA_Putc(tmp, color);
+    }
+}
