@@ -99,13 +99,16 @@ void VGA_Base10(int value, uint8_t color)
     }
 }
 
-void VGA_Base16(int value, uint8_t color)
+void VGA_Base16(int value, uint8_t color, int with0x)
 {
     int count = 0;
     int tmpValue = value;
 
-    VGA_Putc('0', color);
-    VGA_Putc('x', color);
+    if(with0x == 1)
+    {
+        VGA_Putc('0', color);
+        VGA_Putc('x', color);
+    }
 
     while(value != 0)
     {
@@ -122,6 +125,11 @@ void VGA_Base16(int value, uint8_t color)
         array[sub] = value % 16;
         sub--;
         value /= 16;
+    }
+
+    if(tmpValue == 0)
+    {
+        VGA_Putc('0', color);
     }
 
     for(int i = 0; i < count; i++)

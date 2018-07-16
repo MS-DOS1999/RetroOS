@@ -16,5 +16,6 @@ typedef struct
 
 uint32_t MEMINFO_GetMemSize(uint32_t memLo, uint32_t memHi);
 void MEMINFO_PrintMemSize(uint32_t memLo, uint32_t memHi);
+void MEMINFO_PrintMemMap(uint32_t memLo, uint32_t memHi);
 
 #endif

@@ -25,6 +25,7 @@ int kernel()
 
 	VGA_ClearScreen(0x04);
 	MEMINFO_PrintMemSize(MemorySizeLo, MemorySizeHi);
+	MEMINFO_PrintMemMap(MemorySizeLo, MemorySizeHi);
 	
 	return 0;
 }

@@ -14,6 +14,6 @@ void VGA_ClearScreen(uint8_t color);
 void VGA_Putc(char c, uint8_t color);
 void VGA_Puts(char str[], uint8_t color);
 void VGA_Base10(int value, uint8_t color);
-void VGA_Base16(int value, uint8_t color);
+void VGA_Base16(int value, uint8_t color, int with0x);
 
 #endif
