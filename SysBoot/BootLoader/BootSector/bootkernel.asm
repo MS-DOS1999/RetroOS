@@ -1,8 +1,6 @@
 [bits 16]
 [org 0x500]
 
-
-
 cli						
 xor ax, ax
 mov ds, ax
@@ -33,7 +31,10 @@ call switch_to_pm
 %include "BootLoader\Switch_Extra\asciiArt.asm"
 %include "BootLoader\Switch_Extra\gdt.asm"
 %include "BootLoader\Switch_Extra\switchToPM.asm"
-OUTPUT_RM:
-	db "16BIT RM -> load PM"
-OUTPUT_PM:
-	db "32BIT PM is Loaded", 0
+
+
+PRESS:
+	db "Press any key"
+
+TOENTER:
+	db "to enter the system"

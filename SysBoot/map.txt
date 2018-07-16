@@ -1,0 +1,138 @@
+
+- NASM Map file ---------------------------------------------------------------
+
+Source file:  BootLoader\BootSector\bootkernel.asm
+Output file:  BOOTK.COR
+
+-- Program origin -------------------------------------------------------------
+
+00000500
+
+-- Sections (summary) ---------------------------------------------------------
+
+Vstart            Start             Stop              Length    Class     Name
+             500               500               D5C  0000085C  progbits  .text
+
+-- Sections (detailed) --------------------------------------------------------
+
+---- Section .text ------------------------------------------------------------
+
+class:     progbits
+length:                 85C
+start:                  500
+align:     not defined
+follows:   not defined
+vstart:                 500
+valign:    not defined
+vfollows:  not defined
+
+-- Symbols --------------------------------------------------------------------
+
+---- No Section ---------------------------------------------------------------
+
+Value     Name
+00000008  KERNEL_CODE_SEG
+00000010  KERNEL_DATA_SEG
+00000018  USER_CODE_SEG
+00000020  USER_DATA_SEG
+00000000  MemoryMapRegion
+00000000  MemoryMapRegion.baseAddress
+00000008  MemoryMapRegion.length
+00000010  MemoryMapRegion.type
+00000014  MemoryMapRegion.acpi_3_0
+00000018  MemoryMapRegion_size
+
+
+---- Section .text ------------------------------------------------------------
+
+Real              Virtual           Name
+             526               526  PrintOSName
+             6F5               6F5  OS_NAME_0
+             724               724  OS_NAME_1
+             753               753  OS_NAME_2
+             782               782  OS_NAME_3
+             7B1               7B1  OS_NAME_4
+             7E0               7E0  OS_NAME_5
+             80F               80F  OS_NAME_6
+             83E               83E  OS_NAME_7
+             86D               86D  OS_NAME_8
+             89C               89C  OS_NAME_9
+             8CB               8CB  OS_STR_0
+             8EB               8EB  OS_STR_1
+             90B               90B  OS_STR_2
+             92B               92B  OS_STR_3
+             94B               94B  OS_STR_4
+             96B               96B  OS_STR_5
+             98B               98B  OS_STR_6
+             9AB               9AB  OS_STR_7
+             9CB               9CB  OS_STR_8
+             9EB               9EB  OS_STR_9
+             A0B               A0B  PROGRAMMER
+             A29               A29  gdt_null
+             A31               A31  gdt_kernel_code
+             A39               A39  gdt_kernel_data
+             A41               A41  gdt_user_code
+             A49               A49  gdt_user_data
+             A51               A51  gdt_end
+             A51               A51  gdt_descriptor
+             A57               A57  KernelName
+             A62               A62  KernelSize
+             A63               A63  MemSizeLo
+             A67               A67  MemSizeHi
+             A6B               A6B  _OEM
+             A73               A73  _BytesPerSector
+             A75               A75  _SectorPerCluster
+             A76               A76  _ReservedSectors
+             A78               A78  _NumberOfFATs
+             A79               A79  _RootEntries
+             A7B               A7B  _TotalSectors
+             A7D               A7D  _Media
+             A7E               A7E  _SectorsPerFAT
+             A80               A80  _SectorsPerTrack
+             A82               A82  _HeadsPerCylinder
+             A84               A84  _HiddenSectors
+             A88               A88  _TotalSectorsBig
+             A8C               A8C  _DriveNumber
+             A8D               A8D  _Unused
+             A8E               A8E  _ExtBootSignature
+             A8F               A8F  _SerialNumber
+             A93               A93  _VolumeLabel
+             A9F               A9F  _FileSystem
+             AA7               AA7  absoluteSector
+             AA8               AA8  absoluteHead
+             AA9               AA9  absoluteTrack
+             AAA               AAA  fileSector
+             AAC               AAC  cluster
+             AAE               AAE  CHS2LBA
+             ABE               ABE  LBA2CHS
+             AD8               AD8  ReadSectors
+             ADB               ADB  l00p
+             B05               B05  success
+             B10               B10  LoadRoot
+             B41               B41  LoadFAT
+             B5D               B5D  FindFile
+             B6A               B6A  FindFile.l00p
+             B7C               B7C  notFound
+             B83               B83  found
+             B88               B88  LoadFile
+             B8D               B8D  findFile
+             B9F               B9F  loadImageInit
+             BBF               BBF  loadImage
+             BF9               BF9  evenCluster
+             BFF               BFF  oddCluster
+             C04               C04  done
+             C15               C15  GetMemSize
+             C2C               C2C  use_ax
+             C31               C31  GetMemMap
+             C4E               C4E  nextRegion
+             C62               C62  startRegion
+             C7B               C7B  goodRegion
+             C7F               C7F  skipRegion
+             C87               C87  mappingDone
+             C8A               C8A  switch_to_pm
+             CE0               CE0  switch
+             CF0               CF0  init_seg
+             D05               D05  CopyKernel
+             D3C               D3C  PRESS
+             D49               D49  TOENTER
+

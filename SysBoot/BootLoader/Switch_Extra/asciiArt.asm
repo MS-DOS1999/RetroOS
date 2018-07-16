@@ -214,11 +214,21 @@ mov al, 1
 int 0x10
 
 mov bh, 0
-mov bp, OUTPUT_RM
+mov bp, PRESS
+mov bl, 0x03
+mov cx, 13
+mov dl, 55
+mov dh, 16
+mov ah, 0x13
+mov al, 1
+int 0x10
+
+mov bh, 0
+mov bp, TOENTER
 mov bl, 0x03
 mov cx, 19
-mov dl, 15+32+10
-mov dh, 16
+mov dl, 55
+mov dh, 17
 mov ah, 0x13
 mov al, 1
 int 0x10

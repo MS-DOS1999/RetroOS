@@ -1,3 +1,5 @@
+[map all map.txt]
+
 ; kernel name (11 bytes)
 KernelName:
 	db "KERNEL  COR"
@@ -6,8 +8,15 @@ KernelName:
 KernelSize:
 	db 0
 
+MemSizeLo:
+	dd 0
+
+MemSizeHi:
+	dd 0
+
 %include "..\SysCore\Lib\floppy16.asm"
 %include "..\SysCore\Lib\fat12.asm"
+%include "..\SysCore\Lib\mem.asm"
 
 ;okok on va passer en protected mode ! ce qui nous permettre d'avoir des zones memoire protégé
 ;de créer des memoires virtuelles, d'avoir le mode 32bit et pas mal d'autres chose, mais on aura plus acces aux interrupts du bios
@@ -21,6 +30,7 @@ KernelSize:
 ; 6 -> on oublie pas d'init la stack
 
 [bits 16]
+
 switch_to_pm:
 
 	;on charge le root directory et le kernel avant de switch
@@ -43,6 +53,19 @@ switch_to_pm:
 
 	sti
 
+	xor	eax, eax
+	xor	ebx, ebx
+	call GetMemSize
+	mov [MemSizeLo], ax
+	mov [MemSizeHi], bx
+
+
+
+	mov	eax, 0x0
+	mov	ds, ax
+	mov	di, 0x1000
+	call GetMemMap
+
 	call LoadRoot
 
 	mov ebx, 0
@@ -57,7 +80,12 @@ switch_to_pm:
 
 	;--------------------------------------------------------
 
-	switch:
+	
+switch:
+	;mov	ah, 0
+	;int 0x16 ;press any key to enter the system
+
+	cli
 	mov eax, cr0
 	or eax, 0x1
 	mov cr0, eax ; 3
@@ -75,7 +103,6 @@ init_seg:
 	mov ebp, 0x90000
 	mov esp, ebp ; 6
 	
-	call print_OUTPUT_PM
 
 CopyKernel:
 	mov eax, [KernelSize]
@@ -88,32 +115,9 @@ CopyKernel:
 	mov edi, 0x100000
 	mov ecx, eax
 	rep movsd
+
+	mov ecx, [MemSizeLo]
+	mov edx, [MemSizeHi]
 	
 	jmp KERNEL_CODE_SEG:0x100000
-	
-print_OUTPUT_PM:
-	pusha
-	
-	;32bit PM print
-	mov edx, 0xB8000 ;memoire video
-	add edx, 2 * (18 * 80 + (15+32+10)) ;on selectionne l'emplacement du premier char
-	;formule 0xb8000 + 2 * (  row * 80 + col )
-	mov ebx, OUTPUT_PM ;string
-	
-printPM_loop:
-	mov al, [ebx] ;string pointer
-	mov ah, 0x03 ;color
-	
-	cmp al, 0
-	je printPM_end
-	
-	mov [edx], ax ;on stock le char et sa couleur dans l'empalcement video
-	add ebx, 1 ;on incremente le pointeur
-	add edx, 2 ;on incremente la memoire video
-	
-	jmp printPM_loop ;on boucle
-
-printPM_end:
-	popa
-	ret
 	

@@ -10,21 +10,21 @@ asm("cli");
 asm("hlt");
 
 #include "..\Hal\hal.h"
+#include "..\Mmngr\memInfo.h"
 
 int kernel()
 {
+	//extract memLo et memHi
+	uint32_t MemorySizeLo;
+	uint32_t MemorySizeHi;
+	asm volatile("mov [%[MemorySizeLo]], ecx" :: [MemorySizeLo] "g" (MemorySizeLo));
+	asm volatile("mov [%[MemorySizeHi]], edx" :: [MemorySizeHi] "g" (MemorySizeHi));
+
+
 	HAL_Init();
 
 	VGA_ClearScreen(0x04);
-	VGA_GoToXY(0, 2);
-	char strHALInit[] = "Init HAL";
-	VGA_Puts(strHALInit, 0x04);
-	while(1)
-	{
-		VGA_GoToXY(0, 4);
-		VGA_Base10(HAL_GetTickCount(), 0x04);
-		VGA_GoToXY(0, 8);
-		VGA_Base16(0xAB89FE, 0x04);
-	}
+	MEMINFO_PrintMemSize(MemorySizeLo, MemorySizeHi);
+	
 	return 0;
 }
