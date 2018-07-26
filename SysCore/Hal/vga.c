@@ -70,7 +70,7 @@ void VGA_Puts(char str[], uint8_t color)
 	
 }
 
-void VGA_Base10(int value, uint8_t color)
+void VGA_Base10(unsigned int value, uint8_t color)
 {
     int count = 0;
     int tmpValue = value;
@@ -99,7 +99,7 @@ void VGA_Base10(int value, uint8_t color)
     }
 }
 
-void VGA_Base16(int value, uint8_t color, int with0x)
+void VGA_Base16(unsigned int value, uint8_t color, int with0x)
 {
     int count = 0;
     int tmpValue = value;

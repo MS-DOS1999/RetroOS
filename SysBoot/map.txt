@@ -11,14 +11,14 @@ Output file:  BOOTK.COR
 -- Sections (summary) ---------------------------------------------------------
 
 Vstart            Start             Stop              Length    Class     Name
-             500               500               D5C  0000085C  progbits  .text
+             500               500               D46  00000846  progbits  .text
 
 -- Sections (detailed) --------------------------------------------------------
 
 ---- Section .text ------------------------------------------------------------
 
 class:     progbits
-length:                 85C
+length:                 846
 start:                  500
 align:     not defined
 follows:   not defined
@@ -130,9 +130,9 @@ Real              Virtual           Name
              C7F               C7F  skipRegion
              C87               C87  mappingDone
              C8A               C8A  switch_to_pm
-             CE0               CE0  switch
-             CF0               CF0  init_seg
-             D05               D05  CopyKernel
-             D3C               D3C  PRESS
-             D49               D49  TOENTER
+             CD0               CD0  switch
+             CE0               CE0  init_seg
+             CF5               CF5  CopyKernel
+             D26               D26  PRESS
+             D33               D33  TOENTER
 

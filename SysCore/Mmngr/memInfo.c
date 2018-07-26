@@ -1,26 +1,19 @@
 #include "memInfo.h"
 
 //taille en Kb
-uint32_t MEMINFO_GetMemSize(uint32_t memLo, uint32_t memHi)
-{
-	uint32_t memSize = 1024 + memLo + (memHi * 64);
-
-	return memSize;
-}
-
-void MEMINFO_PrintMemSize(uint32_t memLo, uint32_t memHi)
+void MEMINFO_PrintMemSize(uint32_t memSize)
 {
 	VGA_GoToXY(1, 1);
 	char ramsz[] = "Memory Size : ";
 	VGA_Puts(ramsz, 0x04);
 
-	VGA_Base10(MEMINFO_GetMemSize(memLo, memHi), 0x0E);
+	VGA_Base10(memSize, 0x0E);
 
 	char kb[] = " KB";
 	VGA_Puts(kb, 0x04);
 }
 
-void MEMINFO_PrintMemMap(uint32_t memLo, uint32_t memHi)
+void MEMINFO_PrintMemMap()
 {
 	VGA_GoToXY(1, 3);
 	char pmm[] = "Physical Memory Map : ";
@@ -28,14 +21,14 @@ void MEMINFO_PrintMemMap(uint32_t memLo, uint32_t memHi)
 
 	MEM_REGION* region = (MEM_REGION*)0x1000;
 
-	for(int i = 0; i<15; i++)
+	for(int i = 0; i<100; i++)
 	{
 		if(region[i].type > 4) //si la region à un type invalide, on la met reservée car elle est potentiellement buguée
 		{
-			region[i].type = 1;
+			region[i].type = 2;
 		}
 
-		if(i > 0 && region[i].startLo == 0) //c'est la fin, plus de regions à affiché
+		if(i > 0 && region[i].startLo == 0) //c'est la fin, plus de regions à afficher
 		{
 			break;
 		}

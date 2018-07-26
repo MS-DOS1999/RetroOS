@@ -55,13 +55,7 @@ switch_to_pm:
 
 	xor	eax, eax
 	xor	ebx, ebx
-	call GetMemSize
-	mov [MemSizeLo], ax
-	mov [MemSizeHi], bx
 
-
-
-	mov	eax, 0x0
 	mov	ds, ax
 	mov	di, 0x1000
 	call GetMemMap
@@ -116,8 +110,7 @@ CopyKernel:
 	mov ecx, eax
 	rep movsd
 
-	mov ecx, [MemSizeLo]
-	mov edx, [MemSizeHi]
+	mov ecx, [KernelSize]
 	
 	jmp KERNEL_CODE_SEG:0x100000
 	

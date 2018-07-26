@@ -34,132 +34,158 @@ LOAD pic.o
 LOAD idt.o
 LOAD gdt.o
 LOAD memInfo.o
+LOAD physMem.o
 LOAD memset.o
 OUTPUT(kernel.tmp pei-i386)
 
-.text           0x00100000     0x1e00
- .text          0x00100000       0x60 kernel.o
+.text           0x00100000     0x2400
+ .text          0x00100000      0x190 kernel.o
                 0x00100016                kernel
- .text          0x00100060      0x148 hal.o
-                0x00100060                HAL_Init
-                0x001000a9                HAL_Shutdown
-                0x001000b7                HAL_InPortB
-                0x001000d2                HAL_OutPortB
-                0x001000f0                HAL_GetIntVect
-                0x00100137                HAL_IntDone
-                0x00100176                HAL_Beep
-                0x0010019b                HAL_GetTickCount
- .text          0x001001a8       0x20 cpu.o
-                0x001001a8                CPU_Init
-                0x001001c2                CPU_Shutdown
- .text          0x001001c8      0x3dc vga.o
-                0x001001c8                VGA_Init
-                0x001001e6                VGA_GoToXY
-                0x00100223                VGA_ClearScreen
-                0x00100275                VGA_Putc
-                0x00100334                VGA_Puts
-                0x0010037d                VGA_Base10
-                0x00100465                VGA_Base16
- .text          0x001005a4      0x1d4 pit.o
-                0x001005a4                Pit_Routine
-                0x001005c6                PIT_IrqHandler
-                0x001005cf                PIT_SendCommand
-                0x001005f2                PIT_SendData
-                0x0010063b                PIT_ReadData
-                0x00100674                PIT_SetTickCount
-                0x0010068f                PIT_GetTickCount
-                0x00100699                PIT_StartCounter
-                0x00100734                PIT_Init
-                0x0010076b                PIT_IsInit
- .text          0x00100778      0x190 pic.o
-                0x00100778                PIC_ReadData
-                0x001007b4                PIC_SendData
-                0x001007fa                PIC_SendCommand
-                0x00100840                PIC_Init
- .text          0x00100908      0xcb8 idt.o
-                0x00100908                IDT_Handler_INT0
-                0x0010095f                IDT_Handler_INT1
-                0x001009d3                IDT_Handler_INT2
-                0x00100a54                IDT_Handler_INT3
-                0x00100ab9                IDT_Handler_INT4
-                0x00100b07                IDT_Handler_INT5
-                0x00100b5e                IDT_Handler_INT6
-                0x00100bb6                IDT_Handler_INT7
-                0x00100c1b                IDT_Handler_INT8
-                0x00100c72                IDT_Handler_INT9
-                0x00100ce3                IDT_Handler_INT10
-                0x00100d5d                IDT_Handler_INT11
-                0x00100dc0                IDT_Handler_INT12
-                0x00100e29                IDT_Handler_INT13
-                0x00100e9d                IDT_Handler_INT14
-                0x00100eee                IDT_Handler_INT15
-                0x00100f3f                IDT_Handler_INT16
-                0x00100f9a                IDT_Handler_INT17
-                0x0010100b                IDT_Handler_INT18
-                0x00101089                IDT_Handler_INT19
-                0x001010e8                IDT_Handler_INT20_31
-                0x0010113d                IDT_Handler_INT32_255
-                0x001011b1                IDT_Load
-                0x001011bf                IDT_GetIR
-                0x001011cf                IDT_InstallIR
-                0x00101236                IDT_Init
- .text          0x001015c0      0x188 gdt.o
-                0x001015c0                GDT_Load
-                0x001015ce                GDT_SetDescriptor
-                0x0010168f                GDT_GetDescriptor
-                0x0010169f                GDT_Init
- .text          0x00101748      0x4a8 memInfo.o
-                0x00101748                MEMINFO_GetMemSize
-                0x00101768                MEMINFO_PrintMemSize
-                0x001017f3                MEMINFO_PrintMemMap
- .text          0x00101bf0       0x30 memset.o
-                0x00101bf0                memset
+ .text          0x00100190      0x148 hal.o
+                0x00100190                HAL_Init
+                0x001001d9                HAL_Shutdown
+                0x001001e7                HAL_InPortB
+                0x00100202                HAL_OutPortB
+                0x00100220                HAL_GetIntVect
+                0x00100267                HAL_IntDone
+                0x001002a6                HAL_Beep
+                0x001002cb                HAL_GetTickCount
+ .text          0x001002d8       0x20 cpu.o
+                0x001002d8                CPU_Init
+                0x001002f2                CPU_Shutdown
+ .text          0x001002f8      0x3b0 vga.o
+                0x001002f8                VGA_Init
+                0x00100316                VGA_GoToXY
+                0x00100353                VGA_ClearScreen
+                0x001003a5                VGA_Putc
+                0x00100464                VGA_Puts
+                0x001004ad                VGA_Base10
+                0x0010057c                VGA_Base16
+ .text          0x001006a8      0x1d4 pit.o
+                0x001006a8                Pit_Routine
+                0x001006ca                PIT_IrqHandler
+                0x001006d3                PIT_SendCommand
+                0x001006f6                PIT_SendData
+                0x0010073f                PIT_ReadData
+                0x00100778                PIT_SetTickCount
+                0x00100793                PIT_GetTickCount
+                0x0010079d                PIT_StartCounter
+                0x00100838                PIT_Init
+                0x0010086f                PIT_IsInit
+ .text          0x0010087c      0x190 pic.o
+                0x0010087c                PIC_ReadData
+                0x001008b8                PIC_SendData
+                0x001008fe                PIC_SendCommand
+                0x00100944                PIC_Init
+ .text          0x00100a0c      0xcb8 idt.o
+                0x00100a0c                IDT_Handler_INT0
+                0x00100a63                IDT_Handler_INT1
+                0x00100ad7                IDT_Handler_INT2
+                0x00100b58                IDT_Handler_INT3
+                0x00100bbd                IDT_Handler_INT4
+                0x00100c0b                IDT_Handler_INT5
+                0x00100c62                IDT_Handler_INT6
+                0x00100cba                IDT_Handler_INT7
+                0x00100d1f                IDT_Handler_INT8
+                0x00100d76                IDT_Handler_INT9
+                0x00100de7                IDT_Handler_INT10
+                0x00100e61                IDT_Handler_INT11
+                0x00100ec4                IDT_Handler_INT12
+                0x00100f2d                IDT_Handler_INT13
+                0x00100fa1                IDT_Handler_INT14
+                0x00100ff2                IDT_Handler_INT15
+                0x00101043                IDT_Handler_INT16
+                0x0010109e                IDT_Handler_INT17
+                0x0010110f                IDT_Handler_INT18
+                0x0010118d                IDT_Handler_INT19
+                0x001011ec                IDT_Handler_INT20_31
+                0x00101241                IDT_Handler_INT32_255
+                0x001012b5                IDT_Load
+                0x001012c3                IDT_GetIR
+                0x001012d3                IDT_InstallIR
+                0x0010133a                IDT_Init
+ .text          0x001016c4      0x188 gdt.o
+                0x001016c4                GDT_Load
+                0x001016d2                GDT_SetDescriptor
+                0x00101793                GDT_GetDescriptor
+                0x001017a3                GDT_Init
+ .text          0x0010184c      0x478 memInfo.o
+                0x0010184c                MEMINFO_PrintMemSize
+                0x001018c8                MEMINFO_PrintMemMap
+ .text          0x00101cc4      0x67c physMem.o
+                0x00101cc4                PHYSMEM_GetSize
+                0x00101cce                PHYSMEM_GetMaxBlocksNumber
+                0x00101cd8                PHYSMEM_GetUsedBlocksNumber
+                0x00101ce2                PHYSMEM_GetFreeBlocksNumber
+                0x00101cf6                PHYSMEM_GetBlockSize
+                0x00101d00                MemMap_Set
+                0x00101d3d                MemMap_Clear
+                0x00101d7c                MemMap_IsSet
+                0x00101da8                MemMap_FirstFreeBlock
+                0x00101e35                MemMap_FirstFreeBlockChain
+                0x00101f3f                PHYSMEM_InitRegion
+                0x00101f82                PHYSMEM_ShutdownRegion
+                0x00101fc5                PHYSMEM_Init
+                0x001021af                PHYSMEM_AllocBlock
+                0x00102200                PHYSMEM_FreeBlock
+                0x0010222a                PHYSMEM_AllocBlocks
+                0x0010229f                PHYSMEM_FreeBlocks
+                0x001022e3                PHYSMEM_PagingEnable
+                0x00102306                PHYSMEM_IsPaging
+                0x0010231c                PHYSMEM_LoadPDBR
+                0x00102328                PHYSMEM_getPDBR
+ .text          0x00102340       0x30 memset.o
+                0x00102340                memset
 
-.rdata          0x00102000      0x200
- .rdata$zzz     0x00102000       0x24 kernel.o
- .rdata$zzz     0x00102024       0x24 hal.o
- .rdata$zzz     0x00102048       0x24 cpu.o
- .rdata$zzz     0x0010206c       0x24 vga.o
- .rdata$zzz     0x00102090       0x24 pit.o
- .rdata$zzz     0x001020b4       0x24 pic.o
- .rdata$zzz     0x001020d8       0x24 idt.o
- .rdata$zzz     0x001020fc       0x24 gdt.o
- .rdata$zzz     0x00102120       0x24 memInfo.o
- .rdata$zzz     0x00102144       0x24 memset.o
+.rdata          0x00103000      0x200
+ .rdata$zzz     0x00103000       0x24 kernel.o
+ .rdata$zzz     0x00103024       0x24 hal.o
+ .rdata$zzz     0x00103048       0x24 cpu.o
+ .rdata$zzz     0x0010306c       0x24 vga.o
+ .rdata$zzz     0x00103090       0x24 pit.o
+ .rdata$zzz     0x001030b4       0x24 pic.o
+ .rdata$zzz     0x001030d8       0x24 idt.o
+ .rdata$zzz     0x001030fc       0x24 gdt.o
+ .rdata$zzz     0x00103120       0x24 memInfo.o
+ .rdata$zzz     0x00103144       0x24 physMem.o
+ .rdata$zzz     0x00103168       0x24 memset.o
 
-.eh_frame       0x00103000      0xa00
- .eh_frame      0x00103000       0x38 kernel.o
- .eh_frame      0x00103038      0x118 hal.o
- .eh_frame      0x00103150       0x58 cpu.o
- .eh_frame      0x001031a8       0xf8 vga.o
- .eh_frame      0x001032a0      0x138 pit.o
- .eh_frame      0x001033d8       0x98 pic.o
- .eh_frame      0x00103470      0x300 idt.o
- .eh_frame      0x00103770       0x98 gdt.o
- .eh_frame      0x00103808       0x78 memInfo.o
- .eh_frame      0x00103880       0x38 memset.o
+.eh_frame       0x00104000      0xc00
+ .eh_frame      0x00104000       0x38 kernel.o
+ .eh_frame      0x00104038      0x118 hal.o
+ .eh_frame      0x00104150       0x58 cpu.o
+ .eh_frame      0x001041a8       0xf8 vga.o
+ .eh_frame      0x001042a0      0x138 pit.o
+ .eh_frame      0x001043d8       0x98 pic.o
+ .eh_frame      0x00104470      0x300 idt.o
+ .eh_frame      0x00104770       0x98 gdt.o
+ .eh_frame      0x00104808       0x58 memInfo.o
+ .eh_frame      0x00104860      0x2c4 physMem.o
+ .eh_frame      0x00104b24       0x38 memset.o
 
-.data           0x00104000        0x0
- .data          0x00104000        0x0 kernel.o
- .data          0x00104000        0x0 hal.o
- .data          0x00104000        0x0 cpu.o
- .data          0x00104000        0x0 vga.o
- .data          0x00104000        0x0 pit.o
- .data          0x00104000        0x0 pic.o
- .data          0x00104000        0x0 idt.o
- .data          0x00104000        0x0 gdt.o
- .data          0x00104000        0x0 memInfo.o
- .data          0x00104000        0x0 memset.o
+.data           0x00105000        0x0
+ .data          0x00105000        0x0 kernel.o
+ .data          0x00105000        0x0 hal.o
+ .data          0x00105000        0x0 cpu.o
+ .data          0x00105000        0x0 vga.o
+ .data          0x00105000        0x0 pit.o
+ .data          0x00105000        0x0 pic.o
+ .data          0x00105000        0x0 idt.o
+ .data          0x00105000        0x0 gdt.o
+ .data          0x00105000        0x0 memInfo.o
+ .data          0x00105000        0x0 physMem.o
+ .data          0x00105000        0x0 memset.o
 
-.bss            0x00104000      0x85c
- .bss           0x00104000        0x0 kernel.o
- .bss           0x00104000        0x0 hal.o
- .bss           0x00104000        0x0 cpu.o
- .bss           0x00104000        0x8 vga.o
- .bss           0x00104008        0x8 pit.o
- .bss           0x00104010        0x0 pic.o
- *fill*         0x00104010       0x10 
- .bss           0x00104020      0x820 idt.o
- .bss           0x00104840       0x1c gdt.o
- .bss           0x0010485c        0x0 memInfo.o
- .bss           0x0010485c        0x0 memset.o
+.bss            0x00105000      0x86c
+ .bss           0x00105000        0x0 kernel.o
+ .bss           0x00105000        0x0 hal.o
+ .bss           0x00105000        0x0 cpu.o
+ .bss           0x00105000        0x8 vga.o
+ .bss           0x00105008        0x8 pit.o
+ .bss           0x00105010        0x0 pic.o
+ *fill*         0x00105010       0x10 
+ .bss           0x00105020      0x820 idt.o
+ .bss           0x00105840       0x1c gdt.o
+ .bss           0x0010585c        0x0 memInfo.o
+ .bss           0x0010585c       0x10 physMem.o
+ .bss           0x0010586c        0x0 memset.o
