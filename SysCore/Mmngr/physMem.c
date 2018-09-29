@@ -150,6 +150,7 @@ void PHYSMEM_ShutdownRegion(uint32_t baseAddr, uint32_t size)
 void PHYSMEM_Init(uint32_t bitmap)
 {
 
+
 	MEM_REGION*	region = (MEM_REGION*)0x1000;
 
 	for(int i = 0; i<100; i++)
@@ -167,16 +168,14 @@ void PHYSMEM_Init(uint32_t bitmap)
 		
 		physMemSize += region[i].sizeLo;
 	}
+
 	physMemSize /= 1024;
 	memMap 		= (uint32_t*)bitmap;
 	maxBlocks 	= (PHYSMEM_GetSize() * 1024) / PHYSMEM_BLOCK_SIZE;
 	usedBlocks 	= maxBlocks;
 
 	//Par default, à l'init, toute la mem est utilisé
-	for(unsigned int counter; counter < PHYSMEM_GetMaxBlocksNumber(); counter++)
-	{
-		MemMap_Set(counter);
-	}
+	memset(memMap, 0xF, maxBlocks / PHYSMEM_BLOCKS_PER_BYTE);
 
 	
 	for(int i = 0; i<100; i++)
@@ -198,6 +197,7 @@ void PHYSMEM_Init(uint32_t bitmap)
 		}
 	}
 
+
 	//ensuite on shutdown la memoire du kernel, comme ça on peut pas alloc dessus
 	//bitmap - 0x100000 = taille du kernel
 	PHYSMEM_ShutdownRegion(0x100000, bitmap - 0x100000);
@@ -207,6 +207,7 @@ void PHYSMEM_Init(uint32_t bitmap)
 		MemMap_Set(0); //le premier est toujours set. Pour eviter un alloc 0
 		usedBlocks++;
 	}
+
 }
 
 uint32_t PHYSMEM_AllocBlock()

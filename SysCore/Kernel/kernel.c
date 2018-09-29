@@ -21,12 +21,13 @@ int kernel()
 
 
 	HAL_Init();
-	PHYSMEM_Init(0x100000 + KernelSize * 512); //on place la memory map juste derrière le kernel
+
+	VGA_ClearScreen(0x04);
+
+	PHYSMEM_Init(0xC0000000);
 	KYBRD_Install();
 
 	char cmdBuf[100];
-
-	VGA_ClearScreen(0x04);
 
 	while(1)
 	{

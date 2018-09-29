@@ -4,6 +4,7 @@
 
 #include "..\Crt\stdint.h"
 #include "..\Crt\memset.h"
+#include "..\Hal\vga.h"
 #include "memRegion.h"
 
 #define PHYSMEM_BLOCKS_PER_BYTE 8

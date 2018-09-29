@@ -25,7 +25,7 @@ int CLI_Getch()
 void CLI_CMD()
 {
 	char prompt[] = "\nCMD>";
-	VGA_Puts(prompt, 0x46);
+	VGA_Puts(prompt, 0x40);
 }
 
 void CLI_GetCMD(char* buf, int n)

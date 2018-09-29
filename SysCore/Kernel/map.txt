@@ -42,140 +42,140 @@ LOAD strcmp.o
 OUTPUT(kernel.tmp pei-i386)
 
 .text           0x00100000     0x3000
- .text          0x00100000       0x3c kernel.o
+ .text          0x00100000       0x78 kernel.o
                 0x00100016                kernel
- .text          0x0010003c      0x554 cli.o
-                0x0010003c                CLI_Sleep
-                0x00100063                CLI_Getch
-                0x0010008a                CLI_CMD
-                0x001000b3                CLI_GetCMD
-                0x001001e8                CLI_RunCMD
- .text          0x00100590      0x148 hal.o
-                0x00100590                HAL_Init
-                0x001005d9                HAL_Shutdown
-                0x001005e7                HAL_InPortB
-                0x00100602                HAL_OutPortB
-                0x00100620                HAL_GetIntVect
-                0x00100667                HAL_IntDone
-                0x001006a6                HAL_Beep
-                0x001006cb                HAL_GetTickCount
- .text          0x001006d8       0x20 cpu.o
-                0x001006d8                CPU_Init
-                0x001006f2                CPU_Shutdown
- .text          0x001006f8      0x3cc vga.o
-                0x001006f8                VGA_Init
-                0x00100716                VGA_GetXY
-                0x00100734                VGA_GoToXY
-                0x00100771                VGA_ClearScreen
-                0x001007c3                VGA_Putc
-                0x00100882                VGA_Puts
-                0x001008cb                VGA_Base10
-                0x0010099a                VGA_Base16
- .text          0x00100ac4      0x668 kybrd.o
-                0x00100ac4                KYBRD_CtrlReadStatus
-                0x00100ad8                KYBRD_CtrlSendCmd
-                0x00100b0b                KYBRD_EncReadBuf
-                0x00100b1f                KYBRD_EncSendCmd
-                0x00100b52                KYBRD_SetLeds
-                0x00100bbe                KYBRD_Routine
-                0x00100e1a                KYBRD_IrqHandler
-                0x00100e25                KYBRD_GetScrollLock
-                0x00100e2f                KYBRD_GetNumLock
-                0x00100e39                KYBRD_GetCapsLock
-                0x00100e43                KYBRD_GetCtrl
-                0x00100e4d                KYBRD_GetAlt
-                0x00100e57                KYBRD_GetShift
-                0x00100e61                KYBRD_IgnoreResend
-                0x00100e71                KYBRD_GetResend
-                0x00100e7b                KYBRD_GetDiagnostic
-                0x00100e85                KYBRD_GetBAT
-                0x00100e8f                KYBRD_GetLastScancode
-                0x00100e9b                KYBRD_GetLastKey
-                0x00100ecb                KYBRD_DiscardLastKey
-                0x00100edb                KYBRD_KeyToAscii
-                0x00100ffa                KYBRD_Disable
-                0x00101019                KYBRD_Enable
-                0x00101038                KYBRD_IsDisabled
-                0x00101042                KYBRD_ResetSystem
-                0x00101063                KYBRD_SelfTest
-                0x00101096                KYBRD_Install
- .text          0x0010112c      0x1d4 pit.o
-                0x0010112c                Pit_Routine
-                0x0010114e                PIT_IrqHandler
-                0x00101157                PIT_SendCommand
-                0x0010117a                PIT_SendData
-                0x001011c3                PIT_ReadData
-                0x001011fc                PIT_SetTickCount
-                0x00101217                PIT_GetTickCount
-                0x00101221                PIT_StartCounter
-                0x001012bc                PIT_Init
-                0x001012f3                PIT_IsInit
- .text          0x00101300      0x190 pic.o
-                0x00101300                PIC_ReadData
-                0x0010133c                PIC_SendData
-                0x00101382                PIC_SendCommand
-                0x001013c8                PIC_Init
- .text          0x00101490      0xcb8 idt.o
-                0x00101490                IDT_Handler_INT0
-                0x001014e7                IDT_Handler_INT1
-                0x0010155b                IDT_Handler_INT2
-                0x001015dc                IDT_Handler_INT3
-                0x00101641                IDT_Handler_INT4
-                0x0010168f                IDT_Handler_INT5
-                0x001016e6                IDT_Handler_INT6
-                0x0010173e                IDT_Handler_INT7
-                0x001017a3                IDT_Handler_INT8
-                0x001017fa                IDT_Handler_INT9
-                0x0010186b                IDT_Handler_INT10
-                0x001018e5                IDT_Handler_INT11
-                0x00101948                IDT_Handler_INT12
-                0x001019b1                IDT_Handler_INT13
-                0x00101a25                IDT_Handler_INT14
-                0x00101a76                IDT_Handler_INT15
-                0x00101ac7                IDT_Handler_INT16
-                0x00101b22                IDT_Handler_INT17
-                0x00101b93                IDT_Handler_INT18
-                0x00101c11                IDT_Handler_INT19
-                0x00101c70                IDT_Handler_INT20_31
-                0x00101cc5                IDT_Handler_INT32_255
-                0x00101d39                IDT_Load
-                0x00101d47                IDT_GetIR
-                0x00101d57                IDT_InstallIR
-                0x00101dbe                IDT_Init
- .text          0x00102148      0x188 gdt.o
-                0x00102148                GDT_Load
-                0x00102156                GDT_SetDescriptor
-                0x00102217                GDT_GetDescriptor
-                0x00102227                GDT_Init
- .text          0x001022d0      0x478 memInfo.o
-                0x001022d0                MEMINFO_PrintMemSize
-                0x0010234c                MEMINFO_PrintMemMap
- .text          0x00102748      0x67c physMem.o
-                0x00102748                PHYSMEM_GetSize
-                0x00102752                PHYSMEM_GetMaxBlocksNumber
-                0x0010275c                PHYSMEM_GetUsedBlocksNumber
-                0x00102766                PHYSMEM_GetFreeBlocksNumber
-                0x0010277a                PHYSMEM_GetBlockSize
-                0x00102784                MemMap_Set
-                0x001027c1                MemMap_Clear
-                0x00102800                MemMap_IsSet
-                0x0010282c                MemMap_FirstFreeBlock
-                0x001028b9                MemMap_FirstFreeBlockChain
-                0x001029c3                PHYSMEM_InitRegion
-                0x00102a06                PHYSMEM_ShutdownRegion
-                0x00102a49                PHYSMEM_Init
-                0x00102c33                PHYSMEM_AllocBlock
-                0x00102c84                PHYSMEM_FreeBlock
-                0x00102cae                PHYSMEM_AllocBlocks
-                0x00102d23                PHYSMEM_FreeBlocks
-                0x00102d67                PHYSMEM_PagingEnable
-                0x00102d8a                PHYSMEM_IsPaging
-                0x00102da0                PHYSMEM_LoadPDBR
-                0x00102dac                PHYSMEM_getPDBR
- .text          0x00102dc4       0x30 memset.o
-                0x00102dc4                memset
- .text          0x00102df4       0x60 strcmp.o
-                0x00102df4                strcmp
+ .text          0x00100078      0x554 cli.o
+                0x00100078                CLI_Sleep
+                0x0010009f                CLI_Getch
+                0x001000c6                CLI_CMD
+                0x001000ef                CLI_GetCMD
+                0x00100224                CLI_RunCMD
+ .text          0x001005cc      0x148 hal.o
+                0x001005cc                HAL_Init
+                0x00100615                HAL_Shutdown
+                0x00100623                HAL_InPortB
+                0x0010063e                HAL_OutPortB
+                0x0010065c                HAL_GetIntVect
+                0x001006a3                HAL_IntDone
+                0x001006e2                HAL_Beep
+                0x00100707                HAL_GetTickCount
+ .text          0x00100714       0x20 cpu.o
+                0x00100714                CPU_Init
+                0x0010072e                CPU_Shutdown
+ .text          0x00100734      0x3cc vga.o
+                0x00100734                VGA_Init
+                0x00100752                VGA_GetXY
+                0x00100770                VGA_GoToXY
+                0x001007ad                VGA_ClearScreen
+                0x001007ff                VGA_Putc
+                0x001008be                VGA_Puts
+                0x00100907                VGA_Base10
+                0x001009d6                VGA_Base16
+ .text          0x00100b00      0x67c kybrd.o
+                0x00100b00                KYBRD_CtrlReadStatus
+                0x00100b14                KYBRD_CtrlSendCmd
+                0x00100b47                KYBRD_EncReadBuf
+                0x00100b5b                KYBRD_EncSendCmd
+                0x00100b8e                KYBRD_SetLeds
+                0x00100bfa                KYBRD_Routine
+                0x00100e6a                KYBRD_IrqHandler
+                0x00100e75                KYBRD_GetScrollLock
+                0x00100e7f                KYBRD_GetNumLock
+                0x00100e89                KYBRD_GetCapsLock
+                0x00100e93                KYBRD_GetCtrl
+                0x00100e9d                KYBRD_GetAlt
+                0x00100ea7                KYBRD_GetShift
+                0x00100eb1                KYBRD_IgnoreResend
+                0x00100ec1                KYBRD_GetResend
+                0x00100ecb                KYBRD_GetDiagnostic
+                0x00100ed5                KYBRD_GetBAT
+                0x00100edf                KYBRD_GetLastScancode
+                0x00100eeb                KYBRD_GetLastKey
+                0x00100f1b                KYBRD_DiscardLastKey
+                0x00100f2b                KYBRD_KeyToAscii
+                0x0010104a                KYBRD_Disable
+                0x00101069                KYBRD_Enable
+                0x00101088                KYBRD_IsDisabled
+                0x00101092                KYBRD_ResetSystem
+                0x001010b3                KYBRD_SelfTest
+                0x001010e6                KYBRD_Install
+ .text          0x0010117c      0x1d4 pit.o
+                0x0010117c                Pit_Routine
+                0x0010119e                PIT_IrqHandler
+                0x001011a7                PIT_SendCommand
+                0x001011ca                PIT_SendData
+                0x00101213                PIT_ReadData
+                0x0010124c                PIT_SetTickCount
+                0x00101267                PIT_GetTickCount
+                0x00101271                PIT_StartCounter
+                0x0010130c                PIT_Init
+                0x00101343                PIT_IsInit
+ .text          0x00101350      0x190 pic.o
+                0x00101350                PIC_ReadData
+                0x0010138c                PIC_SendData
+                0x001013d2                PIC_SendCommand
+                0x00101418                PIC_Init
+ .text          0x001014e0      0xcb8 idt.o
+                0x001014e0                IDT_Handler_INT0
+                0x00101537                IDT_Handler_INT1
+                0x001015ab                IDT_Handler_INT2
+                0x0010162c                IDT_Handler_INT3
+                0x00101691                IDT_Handler_INT4
+                0x001016df                IDT_Handler_INT5
+                0x00101736                IDT_Handler_INT6
+                0x0010178e                IDT_Handler_INT7
+                0x001017f3                IDT_Handler_INT8
+                0x0010184a                IDT_Handler_INT9
+                0x001018bb                IDT_Handler_INT10
+                0x00101935                IDT_Handler_INT11
+                0x00101998                IDT_Handler_INT12
+                0x00101a01                IDT_Handler_INT13
+                0x00101a75                IDT_Handler_INT14
+                0x00101ac6                IDT_Handler_INT15
+                0x00101b17                IDT_Handler_INT16
+                0x00101b72                IDT_Handler_INT17
+                0x00101be3                IDT_Handler_INT18
+                0x00101c61                IDT_Handler_INT19
+                0x00101cc0                IDT_Handler_INT20_31
+                0x00101d15                IDT_Handler_INT32_255
+                0x00101d89                IDT_Load
+                0x00101d97                IDT_GetIR
+                0x00101da7                IDT_InstallIR
+                0x00101e0e                IDT_Init
+ .text          0x00102198      0x188 gdt.o
+                0x00102198                GDT_Load
+                0x001021a6                GDT_SetDescriptor
+                0x00102267                GDT_GetDescriptor
+                0x00102277                GDT_Init
+ .text          0x00102320      0x478 memInfo.o
+                0x00102320                MEMINFO_PrintMemSize
+                0x0010239c                MEMINFO_PrintMemMap
+ .text          0x00102798      0x684 physMem.o
+                0x00102798                PHYSMEM_GetSize
+                0x001027a2                PHYSMEM_GetMaxBlocksNumber
+                0x001027ac                PHYSMEM_GetUsedBlocksNumber
+                0x001027b6                PHYSMEM_GetFreeBlocksNumber
+                0x001027ca                PHYSMEM_GetBlockSize
+                0x001027d4                MemMap_Set
+                0x00102811                MemMap_Clear
+                0x00102850                MemMap_IsSet
+                0x0010287c                MemMap_FirstFreeBlock
+                0x00102909                MemMap_FirstFreeBlockChain
+                0x00102a13                PHYSMEM_InitRegion
+                0x00102a56                PHYSMEM_ShutdownRegion
+                0x00102a99                PHYSMEM_Init
+                0x00102c8b                PHYSMEM_AllocBlock
+                0x00102cdc                PHYSMEM_FreeBlock
+                0x00102d06                PHYSMEM_AllocBlocks
+                0x00102d7b                PHYSMEM_FreeBlocks
+                0x00102dbf                PHYSMEM_PagingEnable
+                0x00102de2                PHYSMEM_IsPaging
+                0x00102df8                PHYSMEM_LoadPDBR
+                0x00102e04                PHYSMEM_getPDBR
+ .text          0x00102e1c       0x30 memset.o
+                0x00102e1c                memset
+ .text          0x00102e4c       0x60 strcmp.o
+                0x00102e4c                strcmp
 
 .rdata          0x00103000      0x400
  .rdata         0x00103000       0x1c cli.o
@@ -197,20 +197,20 @@ OUTPUT(kernel.tmp pei-i386)
  .rdata$zzz     0x00103320       0x24 strcmp.o
 
 .eh_frame       0x00104000     0x1000
- .eh_frame      0x00104000       0x34 kernel.o
- .eh_frame      0x00104034       0xb8 cli.o
- .eh_frame      0x001040ec      0x118 hal.o
- .eh_frame      0x00104204       0x58 cpu.o
- .eh_frame      0x0010425c      0x118 vga.o
- .eh_frame      0x00104374      0x358 kybrd.o
- .eh_frame      0x001046cc      0x138 pit.o
- .eh_frame      0x00104804       0x98 pic.o
- .eh_frame      0x0010489c      0x300 idt.o
- .eh_frame      0x00104b9c       0x98 gdt.o
- .eh_frame      0x00104c34       0x58 memInfo.o
- .eh_frame      0x00104c8c      0x2c4 physMem.o
- .eh_frame      0x00104f50       0x38 memset.o
- .eh_frame      0x00104f88       0x38 strcmp.o
+ .eh_frame      0x00104000       0x38 kernel.o
+ .eh_frame      0x00104038       0xb8 cli.o
+ .eh_frame      0x001040f0      0x118 hal.o
+ .eh_frame      0x00104208       0x58 cpu.o
+ .eh_frame      0x00104260      0x118 vga.o
+ .eh_frame      0x00104378      0x358 kybrd.o
+ .eh_frame      0x001046d0      0x138 pit.o
+ .eh_frame      0x00104808       0x98 pic.o
+ .eh_frame      0x001048a0      0x300 idt.o
+ .eh_frame      0x00104ba0       0x98 gdt.o
+ .eh_frame      0x00104c38       0x58 memInfo.o
+ .eh_frame      0x00104c90      0x2c4 physMem.o
+ .eh_frame      0x00104f54       0x38 memset.o
+ .eh_frame      0x00104f8c       0x38 strcmp.o
 
 .data           0x00105000      0x200
  .data          0x00105000        0x0 kernel.o
