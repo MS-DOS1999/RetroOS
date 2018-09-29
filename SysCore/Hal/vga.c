@@ -9,6 +9,12 @@ void VGA_Init()
 	vga.y = 0;
 }
 
+void VGA_GetXY(uint8_t* x, uint8_t* y)
+{
+    *x = vga.x;
+    *y = vga.y;
+}
+
 void VGA_GoToXY(uint8_t x, uint8_t y)
 {
 	if(vga.x <= 80)

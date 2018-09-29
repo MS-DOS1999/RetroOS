@@ -6,6 +6,7 @@
 #include "pic.h"
 #include "pit.h"
 #include "vga.h"
+#include "kybrd.h"
 
 #define HAL_TriggerInterrupt(arg) asm("int %0\n" : : "N"((arg)) : "cc", "memory")
 

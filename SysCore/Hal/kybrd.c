@@ -191,7 +191,7 @@ void KYBRD_Routine()
 			}
 			else
 			{
-				scancode = code;
+				currentScancode = code;
 
 				int key = scancodeQwerty[code];
 
@@ -230,7 +230,7 @@ void KYBRD_Routine()
 			}
 		}
 
-		switch()
+		switch(code)
 		{
 			case KYBRD_ERR_BAT_FAILED:
 				basicAssuranceTest = 0;
@@ -255,7 +255,9 @@ void KYBRD_Routine()
 asm("_KYBRD_IrqHandler:");
 asm("pushad");
 asm("cld");
+asm("cli");
 asm("call _KYBRD_Routine");
+asm("sti");
 asm("popad");
 asm("iretd");
 void KYBRD_IrqHandler();
@@ -313,14 +315,14 @@ int KYBRD_GetBAT()
 
 char KYBRD_GetLastScancode()
 {
-	return scancode;
+	return currentScancode;
 }
 
 int KYBRD_GetLastKey()
 {
-	if(scancode != invalidScancode)
+	if(currentScancode != invalidScancode)
 	{
-		return scancodeQwerty[scancode];
+		return scancodeQwerty[currentScancode];
 	}
 	else
 	{
@@ -328,9 +330,9 @@ int KYBRD_GetLastKey()
 	}
 }
 
-void KYBRD_DiscardlastKey()
+void KYBRD_DiscardLastKey()
 {
-	scancode = invalidScancode;
+	currentScancode = invalidScancode;
 }
 
 char KYBRD_KeyToAscii(int code)
@@ -430,7 +432,7 @@ char KYBRD_KeyToAscii(int code)
 						break;
 
 					case KEY_BACKSLASH:
-						key = KEYBAR;
+						key = KEY_BAR;
 						break;
 				}
 			}
@@ -485,7 +487,7 @@ void KYBRD_Install()
 	IDT_InstallIR(33, IDT_DESC_PRESENT | IDT_DESC_BIT32, 0x8, (IRQ_HANDLER)KYBRD_IrqHandler);
 
 	basicAssuranceTest = 1;
-	scancode = 0;
+	currentScancode = 0;
 
 	numLock = 0;
 	scrollLock = 0;

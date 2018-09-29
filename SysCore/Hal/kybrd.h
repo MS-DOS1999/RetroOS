@@ -232,7 +232,7 @@ int KYBRD_GetDiagnostic();
 int KYBRD_GetBAT();
 char KYBRD_GetLastScancode();
 int KYBRD_GetLastKey();
-void KYBRD_DiscardlastKey();
+void KYBRD_DiscardLastKey();
 char KYBRD_KeyToAscii(int code);
 void KYBRD_Disable();
 void KYBRD_Enable();

@@ -10,8 +10,8 @@ asm("cli");
 asm("hlt");
 
 #include "..\Hal\hal.h"
-#include "..\Mmngr\memInfo.h"
 #include "..\Mmngr\physMem.h"
+#include "..\Cli\Cli.h"
 
 int kernel()
 {
@@ -22,26 +22,21 @@ int kernel()
 
 	HAL_Init();
 	PHYSMEM_Init(0x100000 + KernelSize * 512); //on place la memory map juste derrière le kernel
+	KYBRD_Install();
+
+	char cmdBuf[100];
 
 	VGA_ClearScreen(0x04);
-	MEMINFO_PrintMemSize(PHYSMEM_GetSize());
-	MEMINFO_PrintMemMap();
 
-	//test malloc/free
+	while(1)
+	{
+		CLI_GetCMD(cmdBuf, 98);
 
-	VGA_GoToXY(2, 12);
-	char strMemAlloc[] = "Regions Init : ";
-	VGA_Puts(strMemAlloc, 0x04);
-	VGA_Base10(PHYSMEM_GetMaxBlocksNumber(), 0x0E);
-	char strMemAlloc1[] = " allocation blocks; ";
-	VGA_Puts(strMemAlloc1, 0x04);
-
-	char strMemAlloc2[] = " Used/Reserved Blocks : ";
-	VGA_Puts(strMemAlloc2, 0x04);
-	VGA_Base10(PHYSMEM_GetUsedBlocksNumber(), 0x0E);
-	char strMemAlloc3[] = " Free Blocks : ";
-	VGA_Puts(strMemAlloc3, 0x04);
-	VGA_Base10(PHYSMEM_GetFreeBlocksNumber(), 0x0E);
+		if(CLI_RunCMD(cmdBuf) == 1)
+		{
+			break;
+		}
+	}
 
 	return 0;
 }

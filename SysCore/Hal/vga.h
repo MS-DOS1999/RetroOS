@@ -10,6 +10,7 @@ typedef struct{
 
 void VGA_Init();
 void VGA_GoToXY(uint8_t x, uint8_t y);
+void VGA_GetXY(uint8_t* x, uint8_t* y);
 void VGA_ClearScreen(uint8_t color);
 void VGA_Putc(char c, uint8_t color);
 void VGA_Puts(char str[], uint8_t color);
