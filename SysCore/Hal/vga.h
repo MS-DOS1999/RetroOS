@@ -2,6 +2,7 @@
 #define VGA_H
 
 #include "..\Crt\stdint.h"
+#include "..\Hal\hal.h"
 
 typedef struct{
 	uint16_t *vram;
@@ -9,6 +10,7 @@ typedef struct{
 }VGA;
 
 void VGA_Init();
+void VGA_UpdateCursor();
 void VGA_GoToXY(uint8_t x, uint8_t y);
 void VGA_GetXY(uint8_t* x, uint8_t* y);
 void VGA_ClearScreen(uint8_t color);

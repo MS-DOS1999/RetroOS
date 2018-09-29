@@ -19,13 +19,17 @@ int kernel()
 	uint32_t KernelSize = 0;
 	asm volatile("mov [%[KernelSize]], ecx" :: [KernelSize] "g" (KernelSize));
 
-
 	HAL_Init();
 
-	VGA_ClearScreen(0x04);
-
 	PHYSMEM_Init(0xC0000000);
+	PHYSMEM_ShutdownRegion(0x100000, KernelSize*512);
+
 	KYBRD_Install();
+
+	//Enter the system
+	CLI_Getch();
+
+	VGA_ClearScreen(0x04);
 
 	char cmdBuf[100];
 

@@ -18,94 +18,7 @@ static int disable = 0;
 
 const int invalidScancode = 0;
 
-static int scancodeQwerty[] =
-{
-
-	//! key			 scancode
-	KEY_UNKNOWN,	 //0
-	KEY_ESCAPE,		 //1
-	KEY_1,			 //2
-	KEY_2,			 //3
-	KEY_3,			 //4
-	KEY_4,			 //5
-	KEY_5,			 //6
-	KEY_6,			 //7
-	KEY_7,			 //8
-	KEY_8,			 //9
-	KEY_9,			 //0xa
-	KEY_0,			 //0xb
-	KEY_MINUS,		 //0xc
-	KEY_EQUAL,		 //0xd
-	KEY_BACKSPACE,	 //0xe
-	KEY_TAB,		 //0xf
-	KEY_Q,			 //0x10
-	KEY_W,			 //0x11
-	KEY_E,			 //0x12
-	KEY_R,			 //0x13
-	KEY_T,			 //0x14
-	KEY_Y,			 //0x15
-	KEY_U,			 //0x16
-	KEY_I,			 //0x17
-	KEY_O,			 //0x18
-	KEY_P,			 //0x19
-	KEY_LEFTBRACKET, //0x1a
-	KEY_RIGHTBRACKET,//0x1b
-	KEY_RETURN,		 //0x1c
-	KEY_LCTRL,		 //0x1d
-	KEY_A,			 //0x1e
-	KEY_S,			 //0x1f
-	KEY_D,			 //0x20
-	KEY_F,			 //0x21
-	KEY_G,			 //0x22
-	KEY_H,			 //0x23
-	KEY_J,			 //0x24
-	KEY_K,			 //0x25
-	KEY_L,			 //0x26
-	KEY_SEMICOLON,	 //0x27
-	KEY_QUOTE,		 //0x28
-	KEY_GRAVE,		 //0x29
-	KEY_LSHIFT,		 //0x2a
-	KEY_BACKSLASH,	 //0x2b
-	KEY_Z,			 //0x2c
-	KEY_X,			 //0x2d
-	KEY_C,			 //0x2e
-	KEY_V,			 //0x2f
-	KEY_B,			 //0x30
-	KEY_N,			 //0x31
-	KEY_M,			 //0x32
-	KEY_COMMA,		 //0x33
-	KEY_DOT,		 //0x34
-	KEY_SLASH,		 //0x35
-	KEY_RSHIFT,		 //0x36
-	KEY_KP_ASTERISK, //0x37
-	KEY_RALT,		 //0x38
-	KEY_SPACE,		 //0x39
-	KEY_CAPSLOCK,	 //0x3a
-	KEY_F1,			 //0x3b
-	KEY_F2,			 //0x3c
-	KEY_F3,			 //0x3d
-	KEY_F4,			 //0x3e
-	KEY_F5,			 //0x3f
-	KEY_F6,			 //0x40
-	KEY_F7,			 //0x41
-	KEY_F8,			 //0x42
-	KEY_F9,			 //0x43
-	KEY_F10,		 //0x44
-	KEY_KP_NUMLOCK,	 //0x45
-	KEY_SCROLLLOCK,	 //0x46
-	KEY_HOME,		 //0x47
-	KEY_KP_8,		 //0x48	//keypad up arrow
-	KEY_PAGEUP,		 //0x49
-	KEY_KP_2,		 //0x50	//keypad down arrow
-	KEY_KP_3,		 //0x51	//keypad page down
-	KEY_KP_0,		 //0x52	//keypad insert key
-	KEY_KP_DECIMAL,	 //0x53	//keypad delete key
-	KEY_UNKNOWN,	 //0x54
-	KEY_UNKNOWN,	 //0x55
-	KEY_UNKNOWN,	 //0x56
-	KEY_F11,		 //0x57
-	KEY_F12			 //0x58
-};
+static int scancodeQwerty[0x59];
 
 uint8_t KYBRD_CtrlReadStatus()
 {
@@ -155,6 +68,8 @@ void KYBRD_Routine()
 	if(KYBRD_CtrlReadStatus() & KYBRD_CTRL_STATS_MASK_OUT_BUF)
 	{
 		code = KYBRD_EncReadBuf();
+
+		//VGA_Base16(code, 0x04, 1);
 
 		if(code == 0xE0 || code == 0xE1)
 		{
@@ -484,6 +399,93 @@ int KYBRD_SelfTest()
 
 void KYBRD_Install()
 {
+
+	//! key			    scancode
+	scancodeQwerty[0] = KEY_UNKNOWN;	 //0
+	scancodeQwerty[1] = KEY_ESCAPE;		 //1
+	scancodeQwerty[2] = KEY_1;			 //2
+	scancodeQwerty[3] = KEY_2;			 //3
+	scancodeQwerty[4] = KEY_3;			 //4
+	scancodeQwerty[5] = KEY_4;			 //5
+	scancodeQwerty[6] = KEY_5;			 //6
+	scancodeQwerty[7] = KEY_6;			 //7
+	scancodeQwerty[8] = KEY_7;			 //8
+	scancodeQwerty[9] = KEY_8;			 //9
+	scancodeQwerty[10] = KEY_9;			 //0xa
+	scancodeQwerty[11] = KEY_0;			 //0xb
+	scancodeQwerty[12] = KEY_MINUS;		 //0xc
+	scancodeQwerty[13] = KEY_EQUAL;		 //0xd
+	scancodeQwerty[14] = KEY_BACKSPACE;	 //0xe
+	scancodeQwerty[15] = KEY_TAB;		 //0xf
+	scancodeQwerty[16] = KEY_Q;			 //0x10
+	scancodeQwerty[17] = KEY_W;			 //0x11
+	scancodeQwerty[18] = KEY_E;			 //0x12
+	scancodeQwerty[19] = KEY_R;			 //0x13
+	scancodeQwerty[20] = KEY_T;			 //0x14
+	scancodeQwerty[21] = KEY_Y;			 //0x15
+	scancodeQwerty[22] = KEY_U;			 //0x16
+	scancodeQwerty[23] = KEY_I;			 //0x17
+	scancodeQwerty[24] = KEY_O;			 //0x18
+	scancodeQwerty[25] = KEY_P;			 //0x19
+	scancodeQwerty[26] = KEY_LEFTBRACKET; //0x1a
+	scancodeQwerty[27] = KEY_RIGHTBRACKET;//0x1b
+	scancodeQwerty[28] = KEY_RETURN;		 //0x1c
+	scancodeQwerty[29] = KEY_LCTRL;		 //0x1d
+	scancodeQwerty[30] = KEY_A;			 //0x1e
+	scancodeQwerty[31] = KEY_S;			 //0x1f
+	scancodeQwerty[32] = KEY_D;			 //0x20
+	scancodeQwerty[33] = KEY_F;			 //0x21
+	scancodeQwerty[34] = KEY_G;			 //0x22
+	scancodeQwerty[35] = KEY_H;			 //0x23
+	scancodeQwerty[36] = KEY_J;			 //0x24
+	scancodeQwerty[37] = KEY_K;			 //0x25
+	scancodeQwerty[38] = KEY_L;			 //0x26
+	scancodeQwerty[39] = KEY_SEMICOLON;	 //0x27
+	scancodeQwerty[40] = KEY_QUOTE;		 //0x28
+	scancodeQwerty[41] = KEY_GRAVE;		 //0x29
+	scancodeQwerty[42] = KEY_LSHIFT;		 //0x2a
+	scancodeQwerty[43] = KEY_BACKSLASH;	 //0x2b
+	scancodeQwerty[44] = KEY_Z;			 //0x2c
+	scancodeQwerty[45] = KEY_X;			 //0x2d
+	scancodeQwerty[46] = KEY_C;			 //0x2e
+	scancodeQwerty[47] = KEY_V;			 //0x2f
+	scancodeQwerty[48] = KEY_B;			 //0x30
+	scancodeQwerty[49] = KEY_N;			 //0x31
+	scancodeQwerty[50] = KEY_M;			 //0x32
+	scancodeQwerty[51] = KEY_COMMA;		 //0x33
+	scancodeQwerty[52] = KEY_DOT;		 //0x34
+	scancodeQwerty[53] = KEY_SLASH;		 //0x35
+	scancodeQwerty[54] = KEY_RSHIFT;		 //0x36
+	scancodeQwerty[55] = KEY_KP_ASTERISK; //0x37
+	scancodeQwerty[56] = KEY_RALT;		 //0x38
+	scancodeQwerty[57] = KEY_SPACE;		 //0x39
+	scancodeQwerty[58] = KEY_CAPSLOCK;	 //0x3a
+	scancodeQwerty[59] = KEY_F1;			 //0x3b
+	scancodeQwerty[60] = KEY_F2;			 //0x3c
+	scancodeQwerty[61] = KEY_F3;			 //0x3d
+	scancodeQwerty[62] = KEY_F4;			 //0x3e
+	scancodeQwerty[63] = KEY_F5;			 //0x3f
+	scancodeQwerty[64] = KEY_F6;			 //0x40
+	scancodeQwerty[65] = KEY_F7;			 //0x41
+	scancodeQwerty[66] = KEY_F8;			 //0x42
+	scancodeQwerty[67] = KEY_F9;			 //0x43
+	scancodeQwerty[68] = KEY_F10;		 //0x44
+	scancodeQwerty[69] = KEY_KP_NUMLOCK;	 //0x45
+	scancodeQwerty[70] = KEY_SCROLLLOCK;	 //0x46
+	scancodeQwerty[71] = KEY_HOME;		 //0x47
+	scancodeQwerty[72] = KEY_KP_8;		 //0x48	//keypad up arrow
+	scancodeQwerty[73] = KEY_PAGEUP;		 //0x49
+	scancodeQwerty[74] = KEY_KP_2;		 //0x50	//keypad down arrow
+	scancodeQwerty[75] = KEY_KP_3;		 //0x51	//keypad page down
+	scancodeQwerty[76] = KEY_KP_0;		 //0x52	//keypad insert key
+	scancodeQwerty[77] = KEY_KP_DECIMAL;	 //0x53	//keypad delete key
+	scancodeQwerty[78] = KEY_UNKNOWN;	 //0x54
+	scancodeQwerty[79] = KEY_UNKNOWN;	 //0x55
+	scancodeQwerty[80] = KEY_UNKNOWN;	 //0x56
+	scancodeQwerty[81] = KEY_F11;		 //0x57
+	scancodeQwerty[82] = KEY_F12;			 //0x58
+
+	
 	IDT_InstallIR(33, IDT_DESC_PRESENT | IDT_DESC_BIT32, 0x8, (IRQ_HANDLER)KYBRD_IrqHandler);
 
 	basicAssuranceTest = 1;

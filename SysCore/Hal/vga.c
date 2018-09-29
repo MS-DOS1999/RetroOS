@@ -9,6 +9,16 @@ void VGA_Init()
 	vga.y = 0;
 }
 
+void VGA_UpdateCursor()
+{
+    uint16_t pos = vga.y * 80 + vga.x;
+ 
+    HAL_OutPortB(0x3D4, 0x0F);
+    HAL_OutPortB(0x3D5, (uint8_t) (pos & 0xFF));
+    HAL_OutPortB(0x3D4, 0x0E);
+    HAL_OutPortB(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
+}
+
 void VGA_GetXY(uint8_t* x, uint8_t* y)
 {
     *x = vga.x;

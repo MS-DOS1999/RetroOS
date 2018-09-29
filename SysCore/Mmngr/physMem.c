@@ -197,11 +197,6 @@ void PHYSMEM_Init(uint32_t bitmap)
 		}
 	}
 
-
-	//ensuite on shutdown la memoire du kernel, comme ça on peut pas alloc dessus
-	//bitmap - 0x100000 = taille du kernel
-	PHYSMEM_ShutdownRegion(0x100000, bitmap - 0x100000);
-
 	if(!MemMap_IsSet(0))
 	{
 		MemMap_Set(0); //le premier est toujours set. Pour eviter un alloc 0
